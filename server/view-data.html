@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Datos - Acompañarte</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4ecdc4;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        button {
+            background-color: #4ecdc4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #3bbbb3;
+        }
+        .empty {
+            color: #999;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>📊 Datos Guardados - Acompañarte</h1>
+    
+    <div class="section">
+        <h2>👥 Formularios de Pacientes</h2>
+        <button onclick="loadPacientes()">🔄 Actualizar</button>
+        <table id="pacientes-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Mensaje</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody id="pacientes-body">
+                <tr><td colspan="6" class="empty">Cargando...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>🤝 Formularios de Acompañantes</h2>
+        <button onclick="loadAcompanantes()">🔄 Actualizar</button>
+        <table id="acompanantes-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Experiencia</th>
+                    <th>CV</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody id="acompanantes-body">
+                <tr><td colspan="7" class="empty">Cargando...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3001/api';
+
+        async function loadPacientes() {
+            try {
+                const response = await fetch(`${API_URL}/pacientes`);
+                const data = await response.json();
+                const tbody = document.getElementById('pacientes-body');
+                
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="empty">No hay formularios de pacientes registrados aún</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = data.map(p => `
+                    <tr>
+                        <td>${p.id}</td>
+                        <td>${p.nombre || '-'}</td>
+                        <td>${p.email || '-'}</td>
+                        <td>${p.telefono || '-'}</td>
+                        <td>${p.mensaje ? (p.mensaje.length > 50 ? p.mensaje.substring(0, 50) + '...' : p.mensaje) : '-'}</td>
+                        <td>${new Date(p.fecha_creacion).toLocaleString('es-AR')}</td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                document.getElementById('pacientes-body').innerHTML = 
+                    '<tr><td colspan="6" class="empty">Error al cargar datos. Asegúrate de que el servidor backend esté corriendo en http://localhost:3001</td></tr>';
+            }
+        }
+
+        async function loadAcompanantes() {
+            try {
+                const response = await fetch(`${API_URL}/acompanantes`);
+                const data = await response.json();
+                const tbody = document.getElementById('acompanantes-body');
+                
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="empty">No hay formularios de acompañantes registrados aún</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = data.map(a => `
+                    <tr>
+                        <td>${a.id}</td>
+                        <td>${a.nombre || '-'}</td>
+                        <td>${a.email || '-'}</td>
+                        <td>${a.telefono || '-'}</td>
+                        <td>${a.experiencia ? (a.experiencia.length > 50 ? a.experiencia.substring(0, 50) + '...' : a.experiencia) : '-'}</td>
+                        <td>${a.cv || '-'}</td>
+                        <td>${new Date(a.fecha_creacion).toLocaleString('es-AR')}</td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                document.getElementById('acompanantes-body').innerHTML = 
+                    '<tr><td colspan="7" class="empty">Error al cargar datos. Asegúrate de que el servidor backend esté corriendo en http://localhost:3001</td></tr>';
+            }
+        }
+
+        // Cargar datos al abrir la página
+        loadPacientes();
+        loadAcompanantes();
+
+        // Auto-actualizar cada 5 segundos
+        setInterval(() => {
+            loadPacientes();
+            loadAcompanantes();
+        }, 5000);
+    </script>
+</body>
+</html>
+

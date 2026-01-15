@@ -1,0 +1,138 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --coral-50: #fff5f5;
+  --coral-100: #ffe5e5;
+  --coral-500: #ff6b6b;
+  --coral-600: #ff5252;
+  --coral-700: #e64545;
+  
+  --cyan-50: #f0fdff;
+  --cyan-100: #d9f9ff;
+  --cyan-500: #4ecdc4;
+  --cyan-600: #3bbbb3;
+  --cyan-700: #2a9d96;
+  
+  --amber-400: #ffd166;
+  --amber-500: #ffbe3d;
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+  }
+  
+  button {
+    font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer utilities {
+  .bg-coral-50 {
+    background-color: var(--coral-50);
+  }
+  .bg-coral-100 {
+    background-color: var(--coral-100);
+  }
+  .bg-coral-500 {
+    background-color: var(--coral-500);
+  }
+  .bg-coral-600 {
+    background-color: var(--coral-600);
+  }
+  .from-coral-500 {
+    --tw-gradient-from: var(--coral-500);
+  }
+  .to-coral-600 {
+    --tw-gradient-to: var(--coral-600);
+  }
+  .from-coral-600 {
+    --tw-gradient-from: var(--coral-600);
+  }
+  .to-coral-700 {
+    --tw-gradient-to: var(--coral-700);
+  }
+  .hover\:bg-coral-600:hover {
+    background-color: var(--coral-600);
+  }
+  .hover\:bg-coral-50:hover {
+    background-color: var(--coral-50);
+  }
+  .text-coral-500 {
+    color: var(--coral-500);
+  }
+  .text-coral-600 {
+    color: var(--coral-600);
+  }
+  .border-coral-500 {
+    border-color: var(--coral-500);
+  }
+  .hover\:text-coral-500:hover {
+    color: var(--coral-500);
+  }
+  .hover\:text-coral-600:hover {
+    color: var(--coral-600);
+  }
+  .ring-coral-500 {
+    --tw-ring-color: var(--coral-500);
+  }
+  .fill-coral-500 {
+    fill: var(--coral-500);
+  }
+  
+  .bg-cyan-50 {
+    background-color: var(--cyan-50);
+  }
+  .bg-cyan-100 {
+    background-color: var(--cyan-100);
+  }
+  .bg-cyan-500 {
+    background-color: var(--cyan-500);
+  }
+  .bg-cyan-600 {
+    background-color: var(--cyan-600);
+  }
+  .from-cyan-500 {
+    --tw-gradient-from: var(--cyan-500);
+  }
+  .to-cyan-600 {
+    --tw-gradient-to: var(--cyan-600);
+  }
+  .from-cyan-600 {
+    --tw-gradient-from: var(--cyan-600);
+  }
+  .to-cyan-700 {
+    --tw-gradient-to: var(--cyan-700);
+  }
+  .text-cyan-500 {
+    color: var(--cyan-500);
+  }
+  .text-cyan-600 {
+    color: var(--cyan-600);
+  }
+  .ring-cyan-500 {
+    --tw-ring-color: var(--cyan-500);
+  }
+  .hover\:text-cyan-600:hover {
+    color: var(--cyan-600);
+  }
+  
+  .bg-amber-100 {
+    background-color: #ffe9b3;
+  }
+  .from-amber-400 {
+    --tw-gradient-from: var(--amber-400);
+  }
+  .to-amber-500 {
+    --tw-gradient-to: var(--amber-500);
+  }
+  .text-amber-600 {
+    color: #f59e0b;
+  }
+}
